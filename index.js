@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Enquiry = require("./models/Enquiry");
 const Cart = require("./models/Cart");
 const Orders = require("./models/Orders");
+const Products = require("./models/Products");
 
 require("dotenv").config();
 
@@ -13,6 +14,12 @@ const app = express();
 mongoose.connect(DB_CONNECT);
 
 app.use(express.json());
+
+app.get("/products", (req, res) => {
+  Products.find({}).then((result) => {
+    res.send(result);
+  });
+});
 
 app.post("/enquiry", (req, res) => {
   new Enquiry({
